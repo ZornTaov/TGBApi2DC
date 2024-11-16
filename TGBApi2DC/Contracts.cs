@@ -10,6 +10,8 @@ namespace TGBApi
     [DataContract]
     public class rootJson
     {
+        [DataMember(Name = "version")]
+        public string version { get; set; }
         [DataMember(Name = "types")]
         public List<Types> types { get; set; }
         [DataMember(Name = "methods")]

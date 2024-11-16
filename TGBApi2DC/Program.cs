@@ -19,27 +19,33 @@ namespace TGBApi2DC
     {
         static void Main(string[] args)
         {
-            string json = System.IO.File.ReadAllText(args[0]);
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            DataContractJsonSerializer dcjs = new DataContractJsonSerializer(typeof(rootJson));
-            rootJson result = (dcjs.ReadObject(ms)) as rootJson;
-            Stopwatch stopw = new Stopwatch();
-            stopw.Start();
-            TGBApi2DC.GenerateContracts(result);
-            //TGBApi2StructC.TGBApi2StructC.GenerateContracts(result);
-            Directory.CreateDirectory(@".\methods");
-            foreach (Methods method in result.methods)
+            Uri tgscraper = new Uri("https://tgscraper.sys001.xyz/schemas/botapi.json");
+            
+            using (var webClient = new System.Net.WebClient())
             {
+                string json = webClient.DownloadString(tgscraper);// = System.IO.File.ReadAllText(args[0]);
+                // Now parse with JSON.Net
+                var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
+                DataContractJsonSerializer dcjs = new DataContractJsonSerializer(typeof(rootJson));
+                rootJson result = (dcjs.ReadObject(ms)) as rootJson;
+                Stopwatch stopw = new Stopwatch();
+                stopw.Start();
+                TGBApi2DC.GenerateContracts(result);
+                //TGBApi2StructC.TGBApi2StructC.GenerateContracts(result);
+                Directory.CreateDirectory(@".\methods");
+                foreach (Methods method in result.methods)
+                {
 
-                break;
+                    break;
+                }
+
+                stopw.Stop();
+                Console.Write("Time Taken to Generate: ");
+                Console.WriteLine(stopw.ElapsedMilliseconds);
+                Console.WriteLine("Press any key to close...");
+                Console.ReadKey();
+
             }
-
-            stopw.Stop();
-            Console.Write("Time Taken to Generate: ");
-            Console.WriteLine(stopw.ElapsedMilliseconds);
-            Console.WriteLine("Press any key to close...");
-            Console.ReadKey();
-
         }
     }
 }

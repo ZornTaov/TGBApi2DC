@@ -107,9 +107,9 @@ namespace TGBApi2StructC
                 "date",
                 "last_error_date"
             };
-
-            Directory.CreateDirectory(@".\StructC");
-            Directory.SetCurrentDirectory(@".\StructC");
+            Directory.CreateDirectory(@".\" + result.version);
+            Directory.CreateDirectory(@".\" + result.version + @"\StructC");
+            Directory.SetCurrentDirectory(@".\" + result.version + @"\StructC");
 
             Directory.CreateDirectory(@".\Contracts");
             foreach (Types type in result.types)

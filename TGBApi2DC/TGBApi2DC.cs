@@ -119,10 +119,12 @@ namespace TGBApi2DC
                 "edit_date",
                 "forward_date",
                 "date",
-                "last_error_date"
+                "last_error_date",
+                "user_chat_id"
             };
-            Directory.CreateDirectory(@".\DC");
-            Directory.SetCurrentDirectory(@".\DC");
+            Directory.CreateDirectory(@".\" + result.version);
+            Directory.CreateDirectory(@".\" + result.version+@"\DC");
+            Directory.SetCurrentDirectory(@".\" + result.version+@"\DC");
 
             Directory.CreateDirectory(@".\Contracts");
             foreach (Types type in result.types)
