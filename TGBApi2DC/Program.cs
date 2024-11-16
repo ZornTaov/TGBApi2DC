@@ -23,6 +23,7 @@ namespace TGBApi2DC
             
             using (var webClient = new System.Net.WebClient())
             {
+                webClient.Headers.Add("Content-Type", "application/json;charset=utf-8");
                 string json = webClient.DownloadString(tgscraper);// = System.IO.File.ReadAllText(args[0]);
                 // Now parse with JSON.Net
                 var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
